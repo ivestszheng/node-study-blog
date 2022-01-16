@@ -20,6 +20,19 @@ const getList = (author, keyword) => {
   ];
 };
 
+// 获取博客详情数据
+const getDetail = (id) => {
+  // 先返回假数据
+  return {
+    id: 1,
+    title: "标题1",
+    content: "内容1",
+    author: "张三",
+    createAt: "1642333505015",
+  };
+};
+
 module.exports = {
   getList,
+  getDetail,
 };
