@@ -4,7 +4,7 @@ const handleBlogRoute = require("./src/routes/blog");
 // 处理 POST 数据
 const getPostData = (req) => {
   const promise = new Promise((resolve, reject) => {
-    if (req.method === "POST") {
+    if (req.method !== "POST") {
       resolve({});
       return;
     }
