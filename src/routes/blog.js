@@ -8,8 +8,6 @@ const {
   deleteBlog,
 } = require("../controllers/blog");
 
-const { execSQL } = require("../db/mysql");
-
 const handleBlogRoute = (req, res) => {
   // 定义处理路由的逻辑
   const method = req.method;
@@ -18,25 +16,13 @@ const handleBlogRoute = (req, res) => {
 
   // 博客列表
   if (method === "GET" && res.path === "/api/blog/list") {
-    const sql = `select * from blogs`;
-    // execSQL(sql, (err, result) => {
-    //   if (err) {
-    //     console.error("err", err);
-    //     return;
-    //   }
-    //   console.log("result", result);
-    // });
-
-    // promise
-    execSQL(sql).then((result) => {
-      console.log("result", result);
-    });
-
     // /api/blog/list?author=zhangsan&keyword=123
     const author = req.query.author ?? "";
     const keyword = req.query.keyword ?? "";
-    const listData = getBlogList(author, keyword);
-    return new SuccessModel(listData);
+    const listDataPromise = getBlogList(author, keyword);
+    return listDataPromise.then((listData) => {
+      return new SuccessModel(listData);
+    });
   }
 
   // 博客详情
