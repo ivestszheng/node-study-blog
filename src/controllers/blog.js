@@ -14,36 +14,16 @@ const getBlogList = (author, keyword) => {
   }
 
   return execSQL(sql);
-
-  // 先返回假数据
-  // return [
-  //   {
-  //     id: 1,
-  //     title: "标题1",
-  //     content: "内容1",
-  //     author: "张三",
-  //     createAt: "1642333505015",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "标题2",
-  //     content: "内容2",
-  //     author: "李四",
-  //     createAt: "1642333505044",
-  //   },
-  // ];
 };
 
 // 获取博客详情数据
 const getBlogDetail = (id) => {
-  // 先返回假数据
-  return {
-    id: 1,
-    title: "标题1",
-    content: "内容1",
-    author: "张三",
-    createAt: "1642333505015",
-  };
+  let sql = `select * from blogs where id='${id}'`
+
+  return execSQL(sql).then(rows=>{
+    console.log('rows',rows);
+    return rows[0]
+  })
 };
 
 // 创建博客

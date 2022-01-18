@@ -27,9 +27,14 @@ const handleBlogRoute = (req, res) => {
 
   // 博客详情
   if (method === "GET" && res.path === "/api/blog/detail") {
-    const detailData = getBlogDetail(id);
+    // const detailData = getBlogDetail(id);
 
-    return new SuccessModel(detailData);
+    // return new SuccessModel(detailData);
+  
+    const detailDataPromise = getBlogDetail(id);
+    return detailDataPromise.then(detailData => {
+      return new SuccessModel(detailData) 
+    })
   }
 
   // 新建博客
