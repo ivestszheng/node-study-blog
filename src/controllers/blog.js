@@ -18,21 +18,30 @@ const getBlogList = (author, keyword) => {
 
 // 获取博客详情数据
 const getBlogDetail = (id) => {
-  let sql = `select * from blogs where id='${id}'`
+  let sql = `select * from blogs where id='${id}'`;
 
-  return execSQL(sql).then(rows=>{
-    console.log('rows',rows);
-    return rows[0]
-  })
+  return execSQL(sql).then((rows) => {
+    console.log("rows", rows);
+    return rows[0];
+  });
 };
 
 // 创建博客
 const createNewBlog = (blogData = {}) => {
   // blogData title content
-  console.log("blogData", blogData);
-  return {
-    id: 1,
-  };
+  const title = blogData.title;
+  const content = blogData.content;
+  const author = blogData.author;
+  const createdAt = Date.now();
+
+  const sql = `insert into blogs (title, content, author, createdAt) values ('${title}', '${content}', '${author}', ${createdAt});`;
+
+  return execSQL(sql).then((insertedResult) => {
+    console.log("insertedResult", insertedResult);
+    return {
+      id: insertedResult.insertId,
+    };
+  });
 };
 
 // 更新博客

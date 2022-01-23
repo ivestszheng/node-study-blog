@@ -30,18 +30,24 @@ const handleBlogRoute = (req, res) => {
     // const detailData = getBlogDetail(id);
 
     // return new SuccessModel(detailData);
-  
+
     const detailDataPromise = getBlogDetail(id);
-    return detailDataPromise.then(detailData => {
-      return new SuccessModel(detailData) 
-    })
+    return detailDataPromise.then((detailData) => {
+      return new SuccessModel(detailData);
+    });
   }
 
   // 新建博客
   if (method === "POST" && res.path === "/api/blog/new") {
-    const newBlogData = createNewBlog(blogData);
+    // const newBlogData = createNewBlog(blogData);
+    // return new SuccessModel(newBlogData);
+    const author = "zhangsan";
+    req.body.author = author;
+    const newBlogDataPromise = createNewBlog(blogData);
 
-    return new SuccessModel(newBlogData);
+    return newBlogDataPromise.then((newBlogData) => {
+      return new SuccessModel(newBlogData);
+    });
   }
 
   // 更新博客
