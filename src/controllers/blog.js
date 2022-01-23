@@ -46,10 +46,19 @@ const createNewBlog = (blogData = {}) => {
 
 // 更新博客
 const updateBlog = (id, blogData = {}) => {
-  console.log("id", id);
-  console.log("blogData", blogData);
+  const title = blogData.title;
+  const content = blogData.content;
 
-  return true;
+  const sql = `update blogs set title='${title}', content='${content}' where id =${id};`;
+
+  return execSQL(sql).then((updateResult) => {
+    console.log("updateResult", updateResult);
+
+    if (updateResult.affectedRows > 0) {
+      return true;
+    }
+    return false;
+  });
 };
 
 // 删除博客

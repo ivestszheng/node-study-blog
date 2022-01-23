@@ -52,13 +52,15 @@ const handleBlogRoute = (req, res) => {
 
   // 更新博客
   if (method === "POST" && res.path === "/api/blog/update") {
-    console.log(req.body);
-    const updateBlogData = updateBlog(id, blogData);
-    if (updateBlogData) {
-      return new SuccessModel("更新博客成功！");
-    } else {
-      return new ErrorModel("更新博客失败...");
-    }
+    const updateBlogPromise = updateBlog(id, blogData);
+
+    return updateBlogPromise.then((updateBlogData) => {
+      if (updateBlogData) {
+        return new SuccessModel("更新博客成功！");
+      } else {
+        return new ErrorModel("更新博客失败...");
+      }
+    });
   }
 
   // 删除博客
