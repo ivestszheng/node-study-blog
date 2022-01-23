@@ -62,10 +62,17 @@ const updateBlog = (id, blogData = {}) => {
 };
 
 // 删除博客
-const deleteBlog = (id) => {
-  console.log("id", id);
+const deleteBlog = (id, author) => {
+  const sql = `delete from blogs where id=${id} and author='${author}';`;
 
-  return true;
+  return execSQL(sql).then((deleteResult) => {
+    console.log("deleteResult", deleteResult);
+
+    if (deleteResult.affectedRows > 0) {
+      return true;
+    }
+    return false;
+  });
 };
 
 module.exports = {

@@ -65,13 +65,16 @@ const handleBlogRoute = (req, res) => {
 
   // 删除博客
   if (method === "POST" && res.path === "/api/blog/delete") {
-    console.log(req.body);
-    const deleteBlogData = deleteBlog(id);
-    if (deleteBlogData) {
-      return new SuccessModel("删除博客成功！");
-    } else {
-      return new ErrorModel("删除博客失败...");
-    }
+    const author = "zhangsan";
+    const deleteBlogPromise = deleteBlog(id, author);
+
+    return deleteBlogPromise.then((deleteBlogData) => {
+      if (deleteBlogData) {
+        return new SuccessModel("删除博客成功！");
+      } else {
+        return new ErrorModel("删除博客失败...");
+      }
+    });
   }
 };
 
